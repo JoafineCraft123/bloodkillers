@@ -3,184 +3,236 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Clã Blood Killers - Mush</title>
+<title>Blood Killers - Clã Mush</title>
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@700&family=Poppins&display=swap');
 
-  /* Reset básico */
+  /* Reset */
   * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+    margin: 0; padding: 0; box-sizing: border-box;
   }
-
-  body {
-    background: linear-gradient(135deg, #1a0000, #4b0000);
-    color: #eee;
+  body, html {
+    height: 100%;
     font-family: 'Poppins', sans-serif;
-    min-height: 100vh;
+    background: radial-gradient(circle at center, #1a0000, #000000 90%);
+    color: #eee;
+    overflow-x: hidden;
+  }
+
+  /* Fundo com partículas animadas */
+  canvas#particles {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    z-index: 0;
+    pointer-events: none;
+    mix-blend-mode: screen;
+  }
+
+  /* Menu fixo */
+  nav {
+    position: fixed;
+    top: 0; left: 0; width: 100%;
+    background: rgba(20,0,0,0.85);
+    box-shadow: 0 0 20px #ff0000cc;
+    z-index: 1000;
     display: flex;
-    flex-direction: column;
-  }
-
-  header {
-    background: #330000;
-    padding: 30px 20px;
-    text-align: center;
-    box-shadow: 0 0 30px #ff0000aa;
-  }
-
-  header h1 {
+    justify-content: center;
     font-family: 'Orbitron', sans-serif;
-    font-size: 3.8rem;
-    letter-spacing: 0.25em;
-    color: #ff0000;
-    text-shadow:
-      0 0 5px #ff0000,
-      0 0 10px #ff4d4d,
-      0 0 20px #ff0000,
-      0 0 40px #ff0000;
-    animation: neonGlow 2.5s ease-in-out infinite alternate;
   }
 
-  @keyframes neonGlow {
+  nav ul {
+    display: flex;
+    list-style: none;
+    padding: 10px 20px;
+    gap: 38px;
+  }
+  nav ul li {
+    position: relative;
+  }
+  nav ul li a {
+    text-decoration: none;
+    color: #ff6666;
+    font-weight: 700;
+    font-size: 1.15rem;
+    padding: 10px 5px;
+    letter-spacing: 0.12em;
+    transition: color 0.3s ease;
+  }
+  nav ul li a:hover,
+  nav ul li a.active {
+    color: #ff0000;
+  }
+  nav ul li a::after {
+    content: '';
+    position: absolute;
+    bottom: 2px; left: 0; right: 0;
+    height: 3px;
+    background: #ff0000;
+    transform-origin: left;
+    transform: scaleX(0);
+    transition: transform 0.3s ease;
+    border-radius: 2px;
+  }
+  nav ul li a:hover::after,
+  nav ul li a.active::after {
+    transform: scaleX(1);
+  }
+
+  /* Container principal */
+  main {
+    max-width: 960px;
+    margin: 110px auto 70px;
+    padding: 0 20px;
+    z-index: 10;
+    position: relative;
+  }
+
+  /* Títulos Neon */
+  h1, h2 {
+    font-family: 'Orbitron', sans-serif;
+    text-transform: uppercase;
+    letter-spacing: 0.2em;
+    color: #ff1a1a;
+    text-shadow:
+      0 0 5px #ff1a1a,
+      0 0 10px #ff4d4d,
+      0 0 20px #ff1a1a,
+      0 0 40px #ff0000,
+      0 0 60px #ff0000;
+  }
+
+  h1 {
+    font-size: 3.6rem;
+    margin-bottom: 30px;
+    animation: pulseNeon 3s infinite alternate;
+  }
+  h2 {
+    font-size: 2.2rem;
+    margin-bottom: 18px;
+    border-bottom: 3px solid #ff0000;
+    padding-bottom: 8px;
+  }
+
+  @keyframes pulseNeon {
     0% {
       text-shadow:
-        0 0 5px #ff0000,
-        0 0 10px #ff4d4d,
-        0 0 20px #ff0000,
-        0 0 40px #ff0000;
+        0 0 8px #ff1a1a,
+        0 0 16px #ff4d4d,
+        0 0 32px #ff1a1a,
+        0 0 50px #ff0000,
+        0 0 70px #ff0000;
     }
     100% {
       text-shadow:
-        0 0 20px #ff0000,
+        0 0 20px #ff1a1a,
         0 0 30px #ff4d4d,
-        0 0 40px #ff0000,
-        0 0 70px #ff0000;
+        0 0 50px #ff1a1a,
+        0 0 80px #ff0000,
+        0 0 120px #ff0000;
     }
   }
 
-  main {
-    flex: 1;
-    max-width: 900px;
-    margin: 40px auto 60px;
-    padding: 0 20px;
-  }
-
+  /* Seções com sombra e animação de fade-in + slide */
   section {
-    background: #2b0000;
+    background: #2e0000cc;
+    border-radius: 15px;
     padding: 25px 30px;
-    margin-bottom: 35px;
-    border-radius: 12px;
-    box-shadow: 0 0 20px #ff000088;
+    margin-bottom: 40px;
+    box-shadow:
+      0 0 15px #ff000099,
+      inset 0 0 12px #ff222299;
     opacity: 0;
-    transform: translateY(25px);
-    animation: fadeInUp 1s forwards;
+    transform: translateY(30px);
+    animation: fadeUp 1s forwards;
   }
-
   section:nth-child(1) {
-    animation-delay: 0.25s;
+    animation-delay: 0.3s;
   }
   section:nth-child(2) {
-    animation-delay: 0.5s;
+    animation-delay: 0.6s;
   }
   section:nth-child(3) {
-    animation-delay: 0.75s;
+    animation-delay: 0.9s;
   }
-
-  @keyframes fadeInUp {
+  @keyframes fadeUp {
     to {
       opacity: 1;
       transform: translateY(0);
     }
   }
 
-  section h2 {
-    color: #ff6666;
-    margin-bottom: 20px;
-    border-bottom: 3px solid #ff0000;
-    padding-bottom: 10px;
-    font-family: 'Orbitron', sans-serif;
-    letter-spacing: 0.12em;
+  /* Textos da seção sobre e notícias */
+  #sobre p, #central ul li {
+    font-size: 1.12rem;
+    line-height: 1.6;
+    color: #eee;
   }
 
-  /* Fonte dos textos brancos */
-  #sobre p,
-  #central ul li {
-    font-family: 'Poppins', sans-serif;
-    line-height: 1.5;
-    font-size: 1.1rem;
-  }
-
-  /* Central de notícias */
+  /* Central de notícias com scrollbar customizada */
   #central {
     max-height: 220px;
     overflow-y: auto;
-    scrollbar-width: thin;
-    scrollbar-color: #ff4444 #2b0000;
-    padding-right: 10px;
+    padding-right: 12px;
   }
-  #central::-webkit-scrollbar {
-    width: 9px;
-  }
-  #central::-webkit-scrollbar-track {
-    background: #2b0000;
-    border-radius: 5px;
-  }
-  #central::-webkit-scrollbar-thumb {
-    background-color: #ff4444;
-    border-radius: 5px;
-  }
-
   #central ul {
-    list-style-type: none;
+    list-style: none;
   }
   #central ul li {
-    margin-bottom: 14px;
-    padding-bottom: 10px;
     border-bottom: 1px solid #440000;
+    padding: 10px 0;
+  }
+  #central::-webkit-scrollbar {
+    width: 8px;
+  }
+  #central::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  #central::-webkit-scrollbar-thumb {
+    background-color: #ff4444aa;
+    border-radius: 6px;
   }
 
-  /* Botões de contato */
+  /* Botões com ícones e efeito */
   .contact-buttons {
     display: flex;
     gap: 22px;
-    justify-content: center;
     flex-wrap: wrap;
-    margin-top: 10px;
+    justify-content: center;
   }
   .contact-buttons a, .contact-buttons button {
-    background: #ff0000;
+    background: linear-gradient(145deg, #ff1a1a, #cc0000);
     color: #fff;
-    text-decoration: none;
-    padding: 14px 30px;
-    border-radius: 30px;
-    font-weight: 700;
-    box-shadow:
-      0 0 14px #ff0000,
-      0 0 26px #ff4444;
-    transition: background-color 0.3s ease, box-shadow 0.3s ease, transform 0.2s ease;
-    display: inline-flex;
-    align-items: center;
-    gap: 12px;
-    font-family: 'Orbitron', sans-serif;
-    font-size: 1.15rem;
     border: none;
+    border-radius: 30px;
+    padding: 14px 30px;
+    font-family: 'Orbitron', sans-serif;
+    font-weight: 700;
+    font-size: 1.1rem;
     cursor: pointer;
+    box-shadow:
+      0 0 8px #ff0000,
+      0 0 18px #ff4444;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    text-decoration: none;
+    transition: all 0.3s ease;
   }
   .contact-buttons a:hover, .contact-buttons button:hover {
-    background: #ff4444;
+    background: linear-gradient(145deg, #ff3333, #e60000);
     box-shadow:
-      0 0 26px #ff4444,
-      0 0 40px #ff8888;
+      0 0 14px #ff5555,
+      0 0 26px #ff6666;
     transform: scale(1.05);
   }
-  .contact-buttons a svg {
-    fill: white;
+  .contact-buttons a svg, .contact-buttons button svg {
     width: 20px;
     height: 20px;
+    fill: white;
   }
 
+  /* Footer */
   footer {
     text-align: center;
     padding: 25px 10px;
@@ -188,80 +240,76 @@
     color: #aa0000;
     background: #220000;
     font-family: 'Poppins', sans-serif;
+    box-shadow: inset 0 0 20px #440000;
+    position: relative;
+    z-index: 10;
   }
 
-  /* Modal geral */
+  /* Modal */
   .modal {
     display: none;
     position: fixed;
-    z-index: 9999;
-    left: 0; top: 0;
-    width: 100%; height: 100%;
-    background-color: rgba(0,0,0,0.75);
-    backdrop-filter: blur(4px);
-    align-items: center;
+    inset: 0;
+    background: rgba(0,0,0,0.85);
+    backdrop-filter: blur(6px);
     justify-content: center;
-    padding: 20px;
+    align-items: center;
+    z-index: 5000;
   }
-
   .modal.show {
     display: flex;
   }
-
   .modal-content {
-    background: #2b0000;
-    border-radius: 15px;
+    background: #3a0000;
+    border-radius: 20px;
     padding: 30px 40px;
     max-width: 450px;
-    width: 100%;
-    box-shadow: 0 0 30px #ff0000aa;
+    width: 90%;
+    box-shadow:
+      0 0 30px #ff0000cc,
+      inset 0 0 20px #ff3333cc;
     color: #eee;
-    font-family: 'Poppins', sans-serif;
     text-align: center;
     position: relative;
+    font-family: 'Poppins', sans-serif;
   }
-
   .modal-content h3 {
-    margin-bottom: 20px;
-    color: #ff6666;
     font-family: 'Orbitron', sans-serif;
-    letter-spacing: 0.1em;
+    color: #ff6666;
+    margin-bottom: 20px;
+    letter-spacing: 0.12em;
   }
-
   .modal-content p {
     font-size: 1.1rem;
-    line-height: 1.5;
     margin-bottom: 18px;
+    line-height: 1.5;
   }
-
   .modal-discord-link {
     display: inline-block;
     background: #ff0000;
+    padding: 14px 32px;
     color: white;
-    padding: 12px 32px;
-    border-radius: 30px;
-    font-weight: 700;
+    border-radius: 40px;
     font-family: 'Orbitron', sans-serif;
+    font-weight: 700;
     text-decoration: none;
     box-shadow:
-      0 0 14px #ff0000,
-      0 0 26px #ff4444;
-    transition: background-color 0.3s ease, box-shadow 0.3s ease;
-    font-size: 1.1rem;
+      0 0 20px #ff0000,
+      0 0 40px #ff5555;
+    transition: background-color 0.3s ease;
+    font-size: 1.15rem;
   }
   .modal-discord-link:hover {
     background: #ff4444;
     box-shadow:
-      0 0 26px #ff4444,
-      0 0 40px #ff8888;
+      0 0 30px #ff4444,
+      0 0 60px #ff8888;
   }
-
-  /* Botão fechar */
   .close {
     position: absolute;
     top: 15px;
     right: 20px;
-    font-size: 2.2rem;
+    font-size: 2.4rem;
     font-weight: bold;
     color: #ff6666;
     cursor: pointer;
@@ -271,39 +319,63 @@
     color: #ff0000;
   }
 
-  /* Responsividade */
-  @media (max-width: 600px) {
-    header h1 {
-      font-size: 2.8rem;
-      letter-spacing: 0.15em;
+  /* Responsivo */
+  @media (max-width: 640px) {
+    nav ul {
+      gap: 15px;
+      padding: 12px 10px;
+    }
+    nav ul li a {
+      font-size: 1rem;
+      letter-spacing: 0.08em;
     }
     main {
-      margin: 30px 15px 50px;
+      margin: 100px 15px 50px;
+      padding: 0 15px;
     }
-    section {
-      padding: 20px 20px;
+    h1 {
+      font-size: 2.8rem;
+    }
+    h2 {
+      font-size: 1.8rem;
     }
     .contact-buttons {
-      gap: 15px;
+      gap: 14px;
+      justify-content: center;
+    }
+    .contact-buttons a, .contact-buttons button {
+      font-size: 1rem;
+      padding: 12px 24px;
     }
   }
 </style>
 </head>
 <body>
-<header>
-  <h1>Blood Killers</h1>
-</header>
+
+<!-- Fundo partículas -->
+<canvas id="particles"></canvas>
+
+<!-- Navegação -->
+<nav aria-label="Menu principal">
+  <ul>
+    <li><a href="#sobre" class="active">Sobre</a></li>
+    <li><a href="#central">Notícias</a></li>
+    <li><a href="#contato">Contato</a></li>
+  </ul>
+</nav>
 
 <main>
-  <section id="sobre">
+  <h1>Blood Killers</h1>
+
+  <section id="sobre" tabindex="0">
     <h2>Sobre o Clã</h2>
     <p>
-      Blood Killers é um clã lendário do Mush, reconhecido por sua força e união. Nossa missão é dominar batalhas com estratégia e coragem.
-      Se você quer fazer parte, está no lugar certo.
+      Blood Killers é um clã lendário do Mush, conhecido pela sua força e união inabalável. Nossa missão é dominar batalhas com coragem, estratégia e trabalho em equipe.
+      Se você quer fazer parte dessa lenda, está no lugar certo.
     </p>
   </section>
 
-  <section id="central">
+  <section id="central" tabindex="0">
     <h2>Central de Notícias</h2>
     <ul>
       <li><strong>10/06/2025:</strong> Nova temporada iniciada com batalhas épicas!</li>
@@ -314,22 +386,27 @@
     </ul>
   </section>
 
-  <section id="contato">
+  <section id="contato" tabindex="0">
     <h2>Contato</h2>
     <div class="contact-buttons">
-      <a href="https://discord.gg/PE2gf2EjtT" target="_blank" rel="noopener" aria-label="Discord do Blood Killers">
+      <a href="https://discord.gg/PE2gf2EjtT" target="_blank" rel="noopener" aria-label="Entrar no Discord do Blood Killers">
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="white"><path d="M20 0H4C1.8 0 0 1.8 0 4v16c0 2.2 1.8 4 4 4h12l4-4V4c0-2.2-1.8-4-4-4zm-7 15.5c-1.3 0-2.4-1.1-2.4-2.4S11.7 10.7 13 10.7 15.4 11.8 15.4 13 14.3 15.5 13 15.5zm6-5.5H6v-1h13v1z"/></svg>
         Discord
       </a>
-      <a href="mailto:bloodkillers@mushclan.com" aria-label="Email do Blood Killers">
+      <a href="mailto:bloodkillers@mushclan.com" aria-label="Enviar email para Blood Killers">
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="white"><path d="M2 6v12h20V6H2zm18 2v8H4v-8h16zM2 6l10 7 10-7H2z"/></svg>
         Email
       </a>
-      <a href="tel:+550000000000" aria-label="Telefone do Blood Killers">
+      <a href="tel:+550000000000" aria-label="Ligar para Blood Killers">
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="white"><path d="M6.6 10.8c1.2 2.5 3.2 4.5 5.7 5.7l1.3-1.3c.2-.2.5-.3.8-.2 1 .3 2.1.5 3.2.5.4 0 .7.3.7.7v3c0 .4-.3.7-.7.7-8.8 0-16-7.2-16-16 0-.4.3-.7.7-.7h3c.4 0 .7.3.7.7 0 1.1.2 2.2.5 3.2.1.3 0 .6-.2.8l-1.3 1.3z"/></svg>
         Telefone
       </a>
-      <button id="recrutamentoBtn" aria-label="Quero ser recrutado">Quero ser recrutado</button>
+      <button id="recrutamentoBtn" aria-label="Quero ser recrutado">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="white" style="width:22px; height:22px;">
+          <path d="M12 2a10 10 0 1 0 10 10A10.011 10.011 0 0 0 12 2zm1 15h-2v-2h2zm0-4h-2V7h2z"/>
+        </svg>
+        Quero ser recrutado
+      </button>
     </div>
   </section>
 </main>
@@ -338,7 +415,7 @@
   &copy; 2025 Blood Killers Clan. Todos os direitos reservados.
 </footer>
 
-<!-- Modal -->
+<!-- Modal Recrutamento -->
 <div id="modalRecrutamento" class="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitulo" aria-describedby="modalDescricao">
   <div class="modal-content">
     <button class="close" aria-label="Fechar modal">&times;</button>
@@ -350,6 +427,15 @@
 </div>
 
 <script>
+  // Navegação com link ativo ao clicar
+  const navLinks = document.querySelectorAll('nav ul li a');
+  navLinks.forEach(link => {
+    link.addEventListener('click', e => {
+      navLinks.forEach(l => l.classList.remove('active'));
+      e.target.classList.add('active');
+    });
+  });
+
   // Modal funcionalidade
   const btn = document.getElementById('recrutamentoBtn');
   const modal = document.getElementById('modalRecrutamento');
@@ -369,12 +455,76 @@
     }
   });
 
-  // Fechar modal com ESC
   window.addEventListener('keydown', (event) => {
     if (event.key === "Escape" && modal.classList.contains('show')) {
       modal.classList.remove('show');
     }
   });
+
+  // Fundo partículas animadas (simples)
+  const canvas = document.getElementById('particles');
+  const ctx = canvas.getContext('2d');
+  let w, h;
+  let particlesArray;
+
+  function initCanvas() {
+    w = canvas.width = window.innerWidth;
+    h = canvas.height = window.innerHeight;
+  }
+
+  class Particle {
+    constructor() {
+      this.x = Math.random() * w;
+      this.y = Math.random() * h;
+      this.size = Math.random() * 2 + 1;
+      this.speedX = (Math.random() - 0.5) * 0.5;
+      this.speedY = (Math.random() - 0.5) * 0.5;
+      this.opacity = Math.random() * 0.7 + 0.3;
+    }
+    update() {
+      this.x += this.speedX;
+      this.y += this.speedY;
+      if (this.x < 0 || this.x > w) this.speedX *= -1;
+      if (this.y < 0 || this.y > h) this.speedY *= -1;
+    }
+    draw() {
+      ctx.beginPath();
+      ctx.fillStyle = `rgba(255,0,0,${this.opacity})`;
+      ctx.shadowColor = '#ff0000';
+      ctx.shadowBlur = 6;
+      ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+      ctx.fill();
+    }
+  }
+
+  function handleParticles() {
+    ctx.clearRect(0, 0, w, h);
+    particlesArray.forEach(p => {
+      p.update();
+      p.draw();
+    });
+  }
+
+  function animate() {
+    handleParticles();
+    requestAnimationFrame(animate);
+  }
+
+  window.addEventListener('resize', () => {
+    initCanvas();
+  });
+
+  function start() {
+    initCanvas();
+    particlesArray = [];
+    for(let i=0; i<60; i++) {
+      particlesArray.push(new Particle());
+    }
+    animate();
+  }
+
+  start();
 </script>
+
 </body>
 </html>
