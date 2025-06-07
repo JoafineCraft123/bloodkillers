@@ -1,58 +1,193 @@
-<!-- Dentro da seção Contato, adiciona o botão extra -->
-<section id="contato">
-  <h2>Contato</h2>
-  <div class="contact-buttons">
-    <a href="https://discord.gg/PE2gf2EjtT" target="_blank" rel="noopener" aria-label="Discord do Blood Killers">
-      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 0H4C1.8 0 0 1.8 0 4v16c0 2.2 1.8 4 4 4h12l4-4V4c0-2.2-1.8-4-4-4zm-7 15.5c-1.3 0-2.4-1.1-2.4-2.4S11.7 10.7 13 10.7 15.4 11.8 15.4 13 14.3 15.5 13 15.5zm6-5.5H6v-1h13v1z"/></svg>
-      Discord
-    </a>
-    <a href="mailto:bloodkillers@mushclan.com" aria-label="Email do Blood Killers">
-      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M2 6v12h20V6H2zm18 2v8H4v-8h16zM2 6l10 7 10-7H2z"/></svg>
-      Email
-    </a>
-    <a href="tel:+550000000000" aria-label="Telefone do Blood Killers">
-      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M6.6 10.8c1.2 2.5 3.2 4.5 5.7 5.7l1.3-1.3c.2-.2.5-.3.8-.2 1 .3 2.1.5 3.2.5.4 0 .7.3.7.7v3c0 .4-.3.7-.7.7-8.8 0-16-7.2-16-16 0-.4.3-.7.7-.7h3c.4 0 .7.3.7.7 0 1.1.2 2.2.5 3.2.1.3 0 .6-.2.8l-1.3 1.3z"/></svg>
-      Telefone
-    </a>
-    <!-- Novo botão -->
-    <button id="recrutamentoBtn" aria-label="Quero ser recrutado">Quero ser recrutado</button>
-  </div>
-</section>
-
-<!-- Modal -->
-<div id="modalRecrutamento" class="modal">
-  <div class="modal-content">
-    <span class="close" aria-label="Fechar">&times;</span>
-    <h3>Como se tornar membro</h3>
-    <p>Para ser recrutado no Blood Killers, você precisa abrir um ticket no nosso Discord.</p>
-    <p>Acesse nosso Discord pelo link abaixo e abra seu ticket:</p>
-    <a href="https://discord.gg/PE2gf2EjtT" target="_blank" rel="noopener" class="modal-discord-link">Entrar no Discord</a>
-  </div>
-</div>
-
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Clã Blood Killers - Mush</title>
 <style>
-  /* Estilos do botão novo */
-  #recrutamentoBtn {
+  @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@700&family=Poppins&display=swap');
+
+  /* Reset básico */
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+
+  body {
+    background: linear-gradient(135deg, #1a0000, #4b0000);
+    color: #eee;
+    font-family: 'Poppins', sans-serif;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+  }
+
+  header {
+    background: #330000;
+    padding: 30px 20px;
+    text-align: center;
+    box-shadow: 0 0 30px #ff0000aa;
+  }
+
+  header h1 {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 3.8rem;
+    letter-spacing: 0.25em;
+    color: #ff0000;
+    text-shadow:
+      0 0 5px #ff0000,
+      0 0 10px #ff4d4d,
+      0 0 20px #ff0000,
+      0 0 40px #ff0000;
+    animation: neonGlow 2.5s ease-in-out infinite alternate;
+  }
+
+  @keyframes neonGlow {
+    0% {
+      text-shadow:
+        0 0 5px #ff0000,
+        0 0 10px #ff4d4d,
+        0 0 20px #ff0000,
+        0 0 40px #ff0000;
+    }
+    100% {
+      text-shadow:
+        0 0 20px #ff0000,
+        0 0 30px #ff4d4d,
+        0 0 40px #ff0000,
+        0 0 70px #ff0000;
+    }
+  }
+
+  main {
+    flex: 1;
+    max-width: 900px;
+    margin: 40px auto 60px;
+    padding: 0 20px;
+  }
+
+  section {
+    background: #2b0000;
+    padding: 25px 30px;
+    margin-bottom: 35px;
+    border-radius: 12px;
+    box-shadow: 0 0 20px #ff000088;
+    opacity: 0;
+    transform: translateY(25px);
+    animation: fadeInUp 1s forwards;
+  }
+
+  section:nth-child(1) {
+    animation-delay: 0.25s;
+  }
+  section:nth-child(2) {
+    animation-delay: 0.5s;
+  }
+  section:nth-child(3) {
+    animation-delay: 0.75s;
+  }
+
+  @keyframes fadeInUp {
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  section h2 {
+    color: #ff6666;
+    margin-bottom: 20px;
+    border-bottom: 3px solid #ff0000;
+    padding-bottom: 10px;
+    font-family: 'Orbitron', sans-serif;
+    letter-spacing: 0.12em;
+  }
+
+  /* Fonte dos textos brancos */
+  #sobre p,
+  #central ul li {
+    font-family: 'Poppins', sans-serif;
+    line-height: 1.5;
+    font-size: 1.1rem;
+  }
+
+  /* Central de notícias */
+  #central {
+    max-height: 220px;
+    overflow-y: auto;
+    scrollbar-width: thin;
+    scrollbar-color: #ff4444 #2b0000;
+    padding-right: 10px;
+  }
+  #central::-webkit-scrollbar {
+    width: 9px;
+  }
+  #central::-webkit-scrollbar-track {
+    background: #2b0000;
+    border-radius: 5px;
+  }
+  #central::-webkit-scrollbar-thumb {
+    background-color: #ff4444;
+    border-radius: 5px;
+  }
+
+  #central ul {
+    list-style-type: none;
+  }
+  #central ul li {
+    margin-bottom: 14px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #440000;
+  }
+
+  /* Botões de contato */
+  .contact-buttons {
+    display: flex;
+    gap: 22px;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin-top: 10px;
+  }
+  .contact-buttons a, .contact-buttons button {
     background: #ff0000;
     color: #fff;
-    border: none;
-    padding: 14px 28px;
+    text-decoration: none;
+    padding: 14px 30px;
     border-radius: 30px;
-    font-family: 'Orbitron', sans-serif;
     font-weight: 700;
-    cursor: pointer;
     box-shadow:
       0 0 14px #ff0000,
       0 0 26px #ff4444;
     transition: background-color 0.3s ease, box-shadow 0.3s ease, transform 0.2s ease;
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    font-family: 'Orbitron', sans-serif;
     font-size: 1.15rem;
+    border: none;
+    cursor: pointer;
   }
-  #recrutamentoBtn:hover {
+  .contact-buttons a:hover, .contact-buttons button:hover {
     background: #ff4444;
     box-shadow:
       0 0 26px #ff4444,
       0 0 40px #ff8888;
     transform: scale(1.05);
+  }
+  .contact-buttons a svg {
+    fill: white;
+    width: 20px;
+    height: 20px;
+  }
+
+  footer {
+    text-align: center;
+    padding: 25px 10px;
+    font-size: 1rem;
+    color: #aa0000;
+    background: #220000;
+    font-family: 'Poppins', sans-serif;
   }
 
   /* Modal geral */
@@ -67,6 +202,10 @@
     align-items: center;
     justify-content: center;
     padding: 20px;
+  }
+
+  .modal.show {
+    display: flex;
   }
 
   .modal-content {
@@ -131,25 +270,111 @@
   .close:hover {
     color: #ff0000;
   }
+
+  /* Responsividade */
+  @media (max-width: 600px) {
+    header h1 {
+      font-size: 2.8rem;
+      letter-spacing: 0.15em;
+    }
+    main {
+      margin: 30px 15px 50px;
+    }
+    section {
+      padding: 20px 20px;
+    }
+    .contact-buttons {
+      gap: 15px;
+    }
+  }
 </style>
+</head>
+<body>
+<header>
+  <h1>Blood Killers</h1>
+</header>
+
+<main>
+  <section id="sobre">
+    <h2>Sobre o Clã</h2>
+    <p>
+      Blood Killers é um clã lendário do Mush, reconhecido por sua força e união. Nossa missão é dominar batalhas com estratégia e coragem.
+      Se você quer fazer parte, está no lugar certo.
+    </p>
+  </section>
+
+  <section id="central">
+    <h2>Central de Notícias</h2>
+    <ul>
+      <li><strong>10/06/2025:</strong> Nova temporada iniciada com batalhas épicas!</li>
+      <li><strong>05/06/2025:</strong> Novo ranking mensal lançado. Confira seu progresso.</li>
+      <li><strong>01/06/2025:</strong> Atualização de regras e recompensas para membros ativos.</li>
+      <li><strong>28/05/2025:</strong> Evento especial em homenagem aos fundadores do clã.</li>
+      <li><strong>20/05/2025:</strong> Sessões de treinamento abertas para novos recrutas.</li>
+    </ul>
+  </section>
+
+  <section id="contato">
+    <h2>Contato</h2>
+    <div class="contact-buttons">
+      <a href="https://discord.gg/PE2gf2EjtT" target="_blank" rel="noopener" aria-label="Discord do Blood Killers">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="white"><path d="M20 0H4C1.8 0 0 1.8 0 4v16c0 2.2 1.8 4 4 4h12l4-4V4c0-2.2-1.8-4-4-4zm-7 15.5c-1.3 0-2.4-1.1-2.4-2.4S11.7 10.7 13 10.7 15.4 11.8 15.4 13 14.3 15.5 13 15.5zm6-5.5H6v-1h13v1z"/></svg>
+        Discord
+      </a>
+      <a href="mailto:bloodkillers@mushclan.com" aria-label="Email do Blood Killers">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="white"><path d="M2 6v12h20V6H2zm18 2v8H4v-8h16zM2 6l10 7 10-7H2z"/></svg>
+        Email
+      </a>
+      <a href="tel:+550000000000" aria-label="Telefone do Blood Killers">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="white"><path d="M6.6 10.8c1.2 2.5 3.2 4.5 5.7 5.7l1.3-1.3c.2-.2.5-.3.8-.2 1 .3 2.1.5 3.2.5.4 0 .7.3.7.7v3c0 .4-.3.7-.7.7-8.8 0-16-7.2-16-16 0-.4.3-.7.7-.7h3c.4 0 .7.3.7.7 0 1.1.2 2.2.5 3.2.1.3 0 .6-.2.8l-1.3 1.3z"/></svg>
+        Telefone
+      </a>
+      <button id="recrutamentoBtn" aria-label="Quero ser recrutado">Quero ser recrutado</button>
+    </div>
+  </section>
+</main>
+
+<footer>
+  &copy; 2025 Blood Killers Clan. Todos os direitos reservados.
+</footer>
+
+<!-- Modal -->
+<div id="modalRecrutamento" class="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitulo" aria-describedby="modalDescricao">
+  <div class="modal-content">
+    <button class="close" aria-label="Fechar modal">&times;</button>
+    <h3 id="modalTitulo">Como se tornar membro</h3>
+    <p id="modalDescricao">Para ser recrutado no Blood Killers, você precisa abrir um ticket no nosso Discord.</p>
+    <p>Acesse nosso Discord pelo link abaixo e abra seu ticket:</p>
+    <a href="https://discord.gg/PE2gf2EjtT" target="_blank" rel="noopener" class="modal-discord-link">Entrar no Discord</a>
+  </div>
+</div>
 
 <script>
-  // Controla abertura/fechamento da modal
+  // Modal funcionalidade
   const btn = document.getElementById('recrutamentoBtn');
   const modal = document.getElementById('modalRecrutamento');
   const closeBtn = modal.querySelector('.close');
 
   btn.addEventListener('click', () => {
-    modal.style.display = 'flex';
+    modal.classList.add('show');
   });
 
   closeBtn.addEventListener('click', () => {
-    modal.style.display = 'none';
+    modal.classList.remove('show');
   });
 
-  window.addEventListener('click', e => {
-    if (e.target === modal) {
-      modal.style.display = 'none';
+  window.addEventListener('click', (event) => {
+    if (event.target === modal) {
+      modal.classList.remove('show');
+    }
+  });
+
+  // Fechar modal com ESC
+  window.addEventListener('keydown', (event) => {
+    if (event.key === "Escape" && modal.classList.contains('show')) {
+      modal.classList.remove('show');
     }
   });
 </script>
+</body>
+</html>
